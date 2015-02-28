@@ -1,0 +1,18 @@
+body 
+{
+  background-color: #005983;
+  text-color: #FFFFFF;
+}
+div.main
+{
+  background-color: #053B60;
+  text-color:#FFFFFF;
+  width: 400px;
+  height: 300px;
+  position:absolute;
+  top: 150px;
+  left:200px;
+  border: 1px black;
+  border-radius: 5px;
+  padding: 10px;
+}
