@@ -2,13 +2,47 @@
 //Will store data as:
 //    jrs|srs|refreshtime
 
-function reading()
+//file_put_contents("storage.txt", "0|1|0");
+
+$filename = "storage.txt";
+function reading($filename)
 {
-  
+  if(file_exists($filename))
+  {
+    $cont = file_get_contents($filename);
+    $cont_array = explode('|', $cont);
+    foreach($cont_array as &$element)
+    {
+      $element = intval($element);
+    }
+    return $cont_array;
+  }
+  else
+    return array(0,0,0);
 }
-function writing()
+function writing($filename, $cont_array)
+{
+  $cont;
+  foreach($cont_array as $element)
+  {
+    $cont .= $element . "|";
+  }
+  $cont = trim($cont, "|");
+//  echo($cont);
+  file_put_contents($filename, $cont);
+}
 
+$cont = reading($filename);
+$cont[1] += 1;
+writing($filename, $cont);
+$todo = $_GET['action'];
 
-$_GET['refresh']
+if($todo == "jrs") { echo $cont[0]; }
+if($todo == "srs") { echo $cont[1]; }
+if($todo == "refresh") { echo $cont[2]; }
+if($todo == "set_jrs") { $cont[0] = intval($_GET['val']); writing($filename, $cont) }
+if($todo == "set_jrs") { $cont[1] = intval($_GET['val']); writing($filename, $cont) }
+if($todo == "set_jrs") { $cont[2] = intval($_GET['val']); writing($filename, $cont) }
+if($todo == "reset") { unlink("storage.txt"); };
 
 ?>

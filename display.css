@@ -1,18 +1,56 @@
 body 
 {
   background-color: #005983;
-  text-color: #FFFFFF;
 }
-div.main
+div.cont
 {
-  background-color: #053B60;
-  text-color:#FFFFFF;
-  width: 400px;
+  width: 510px;
   height: 300px;
   position:absolute;
   top: 150px;
   left:200px;
-  border: 1px black;
+}
+div.title
+{
+  position:absolute;
+  width:500px;
+  height:35px;
+  font-family:serif;
+  color: yellow;
+  top:0;
+  left:3px;
+  text-align:center;
+  font-size: 1.6em;
+  font-weight: 900;
+}
+div.main
+{
+  background-color: #053B60;
+  color:#FFFFFF;
+  width: 500px;
+  height: 250px;
+  position:absolute;
+  top: 40px;
+  font-family:sans-serif;
+  border: 2px solid yellow;
   border-radius: 5px;
   padding: 10px;
+}
+div.sub
+{
+  float: left;
+  top: 10px;
+  padding:10px;
+  height:225px;
+  width:225px;
+}
+div.mid
+{
+  float: left;
+  background-color: yellow;
+  margin-top: 25px;
+  left: 10px;
+  height:200px;
+  width:2px;
+  background-color: yellow;
 }
