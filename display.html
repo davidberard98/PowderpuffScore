@@ -3,16 +3,29 @@
   <head>
     <link rel="stylesheet" href="display.css" />
     <script type="text/javascript">
+      var jrs=0;
+      var srs=0;
+      var refresh=0;
       function reloading()
       {
-        var xmlhttp;
-        
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "storage.php?action=jrs", false);
+        xmlhttp.send();
+        document.getElementById("jrs").innerHTML=xmlhttp.responseText;
+        xmlhttp.open("GET", "storage.php?action=srs", false);
+        xmlhttp.send();
+        document.getElementById("srs").innerHTML=xmlhttp.responseText;
+        xmlhttp.open("GET", "storage.php?action=refresh", false);
+        xmlhttp.send();
+        refresh=parseInt(xmlhttp.responseText);
+
+        setTimeout(function(){ reloading(); }, 250+refresh)
       }
     
     </script>
     <title>PowderPuff Score</title>
   </head>
-  <body>
+  <body onload="reloading()">
     <div class="cont">
       <div class="title">
         Powderpuff Score

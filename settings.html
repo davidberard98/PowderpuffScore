@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type = "text/javascript">
+      function update()
+      {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "storage.php?action=set_jrs&val=" + document.getElementById("jrs").value, false);
+        xmlhttp.send();
+        xmlhttp.open("GET", "storage.php?action=set_srs&val=" + document.getElementById("srs").value, false);
+        xmlhttp.send();
+        xmlhttp.open("GET", "storage.php?action=set_refresh&val=" + document.getElementById("refresh").value, false);
+        xmlhttp.send();
+      }
+      function initload()
+      {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "storage.php?action=jrs", false);
+        xmlhttp.send();
+        document.getElementById("jrs").value=xmlhttp.responseText;
+        xmlhttp.open("GET", "storage.php?action=srs", false);
+        xmlhttp.send();
+        document.getElementById("srs").value=xmlhttp.responseText;
+        xmlhttp.open("GET", "storage.php?action=refresh", false);
+        xmlhttp.send();
+        document.getElementById("refresh").value=xmlhttp.responseText;
+      }
+      function clearstorage()
+      {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "storage.php?action=reset", false);
+        xmlhttp.send();
+        initload();
+      }
+    </script>
+    <title></title>
+  </head>
+  <body onLoad="initload()">
+    <form onsubmit="update(); return false;">
+      Juniors: <input type="text" id="jrs" style="width:45px" value="a" /> <br />
+      Seniors: <input type="text" id="srs" style="width:45px" value="b" /> <br />
+      Refresh rate: <input type="text" id="refresh" style="width:45px" value="c" /> * measured in ms <br />
+      <input type="submit" value="Update!" /> <br /><br />
+    </form>
+    <button onclick="clearstorage()">CLEAR</button>
+  </body>
+</html>
