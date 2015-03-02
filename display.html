@@ -8,18 +8,49 @@
       var refresh=0;
       function reloading()
       {
+        var nocache = new Date().getTime(); 
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "storage.php?action=jrs", false);
+        xmlhttp.open("GET", "storage.php?cache="+nocache+"&action=jrs", false);
         xmlhttp.send();
+        jrs=parseInt(xmlhttp.responseText);
         document.getElementById("jrs").innerHTML=xmlhttp.responseText;
-        xmlhttp.open("GET", "storage.php?action=srs", false);
+        xmlhttp.open("GET", "storage.php?cache="+nocache+"&action=srs", false);
         xmlhttp.send();
+        srs=parseInt(xmlhttp.responseText);
         document.getElementById("srs").innerHTML=xmlhttp.responseText;
-        xmlhttp.open("GET", "storage.php?action=refresh", false);
+        xmlhttp.open("GET", "storage.php?cache="+nocache+"&action=refresh", false);
         xmlhttp.send();
         refresh=parseInt(xmlhttp.responseText);
 
-        setTimeout(function(){ reloading(); }, 250+refresh)
+        if(jrs > srs)
+        {
+          document.getElementById("jrs").style.fontSize="1.6em";
+          document.getElementById("jrs").style.color="yellow";
+          document.getElementById("jrs").style.fontWeight="900";
+          document.getElementById("srs").style.fontSize="1.2em";
+          document.getElementById("srs").style.color="orange";
+          document.getElementById("srs").style.fontWeight="900";
+        }
+        if(jrs < srs)
+        {
+          document.getElementById("jrs").style.fontSize="1.2em";
+          document.getElementById("jrs").style.color="orange";
+          document.getElementById("jrs").style.fontWeight="900";
+          document.getElementById("srs").style.fontSize="1.6em";
+          document.getElementById("srs").style.color="yellow";
+          document.getElementById("srs").style.fontWeight="900";
+        }
+        if(jrs == srs)
+        {
+          document.getElementById("jrs").style.fontSize="1.2em";
+          document.getElementById("jrs").style.color="orange";
+          document.getElementById("jrs").style.fontWeight="900";
+          document.getElementById("srs").style.fontSize="1.2em";
+          document.getElementById("srs").style.color="orange";
+          document.getElementById("srs").style.fontWeight="900";
+        }
+
+        setTimeout(function(){ reloading(); }, 250+refresh);
       }
     
     </script>
@@ -33,12 +64,12 @@
       <div class="main">
         <div class="sub">
           <span style="font-size:1.2em;font-weight:900;text-align:center;color:#CCCCFF;display:block;width:100%;">JUNIORS</span> <br />
-          Score:<span id="jrs">0</span>
+          Score:&nbsp;<span style="" id="jrs">0</span> <span style="font-size:1.6em"> </span>
         </div>
         <div class="mid"> </div>
         <div class="sub">
           <span style="font-size:1.2em;font-weight:900;text-align:center;color:#CCCCCC;display:block;width:100%;">SENIORS</span> <br />
-          Score:<span id="srs">0</span>
+          Score:&nbsp; <span style="" id="srs">0</span> <span style="font-size:1.6em"> </span>
         </div>
       </div>
     </div>
